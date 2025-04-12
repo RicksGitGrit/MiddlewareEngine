@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+	<PropertyGroup>
+		<!-- Centralized Version Info -->
+		<Version>1.0.0</Version>
+		<AssemblyVersion>1.0.0.0</AssemblyVersion>
+		<FileVersion>1.0.0.0</FileVersion>
+		<PackageVersion>1.0.0</PackageVersion>
+
+		<!-- Optional: Common metadata -->
+		<Authors>Rick Kouwen</Authors>
+		<Description>Build versioning</Description>
+	</PropertyGroup>
+</Project>
