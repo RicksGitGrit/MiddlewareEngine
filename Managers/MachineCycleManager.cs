@@ -4,7 +4,6 @@ using NotificationEngineWorker.Core.Data;
 using MiddlewareEngineWorker.Core.Interfaces;
 using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 
 namespace NotificationEngineWorker.Managers;
 public class MachineCycleManager
@@ -17,7 +16,7 @@ public class MachineCycleManager
     /// <summary>
     /// Registry of callbacks, assigned callback depends on the producer of the request and the type of request 
     /// </summary>
-    private readonly IProducerCallbackRegistry _callbackRegistry;
+    private readonly IRequestCallbackRegistry _callbackRegistry;
 
     /// <summary>
     /// Thread-safe dict of open cycle scopes, retrievable per producer given the machine cycle
@@ -38,7 +37,7 @@ public class MachineCycleManager
     /// </summary>
     /// <param name="rootScope"></param>
     /// <param name="callbackRegistry"></param>
-    public MachineCycleManager(ILifetimeScope rootScope, IProducerCallbackRegistry callbackRegistry)
+    public MachineCycleManager(ILifetimeScope rootScope, IRequestCallbackRegistry callbackRegistry)
     {
         _rootScope = rootScope;
         _callbackRegistry = callbackRegistry;

@@ -1,9 +1,5 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using NotificationEngineWorker.Core.Interfaces;
-using NotificationEngineWorker.Managers.Callback;
-using NotificationEngineWorker.Managers.RequestHandling;
-using NotificationEngineWorker.Managers.Data;
 
 namespace NotificationEngineWorker
 {
@@ -24,10 +20,8 @@ namespace NotificationEngineWorker
                 })
                 .ConfigureContainer<ContainerBuilder>(builder =>
                 {
-                    // Autofac registrations go here
-                    builder.RegisterType<FlowFactory>().As<IFlowFactory>().SingleInstance();
-                    builder.RegisterType<ProducerCallbackRegistry>().SingleInstance();
-                    builder.RegisterType<RequestConsumer>().InstancePerLifetimeScope();
+                    builder.RegisterModule<FlowModule>();
+                    builder.RegisterModule<HandlingModule>();
                 });
     }
 }

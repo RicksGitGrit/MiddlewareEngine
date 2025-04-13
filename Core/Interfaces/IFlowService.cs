@@ -2,6 +2,6 @@
 
 public interface IFlowService : IDisposable
 {
-    void Send(string message);
+    Task SendAsync(string message, CancellationToken cancellationToken);
 }
 

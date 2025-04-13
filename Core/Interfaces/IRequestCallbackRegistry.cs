@@ -2,7 +2,7 @@
 
 namespace NotificationEngineWorker.Core.Interfaces;
 
-public interface IProducerCallbackRegistry
+public interface IRequestCallbackRegistry : IDisposable
 {
     ProducerCallbackDelegate GetCallback(IRequest request);
 }

@@ -4,9 +4,11 @@ namespace NotificationEngineWorker.Managers.Data;
 
 public class DefaultFlow : IFlowService
 {
-    public void Send(string message)
+    public async Task SendAsync(string message, CancellationToken cancellationToken)
     {
         Console.WriteLine($"Sending Default: {message}");
+        await Task.Delay(500, cancellationToken);
+        Console.WriteLine($"Finished Default: {message}");
     }
 
     public void Dispose() { }

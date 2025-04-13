@@ -3,6 +3,9 @@ using NotificationEngineWorker.Core.Interfaces;
 
 namespace NotificationEngineWorker.Core.Data;
 
+/// <summary>
+/// Default request that a produces may publish to the CycleManager
+/// </summary>
 public class ProducerRequest : IRequest
 {
     /// <inheritdoc/>
@@ -18,13 +21,16 @@ public class ProducerRequest : IRequest
     public string? Message { get; set; }
 
     /// <inheritdoc/>
-    public ProducerType Type { get; set; }
-
-    /// <inheritdoc/>
     public string Request { get; set; }
 
+    /// <inheritdoc/>
+    public ProducerType ProducerType { get; set; }
+
+    /// <inheritdoc/>
+    public RequestType RequestType { get; set; }
+
     /// <summary>
-    /// Required constructor
+    /// Creates a producer request
     /// </summary>
     /// <param name="request"></param>
     public ProducerRequest(string request)

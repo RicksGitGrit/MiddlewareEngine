@@ -8,12 +8,12 @@ namespace NotificationEngineWorker.Core.Interfaces;
 public interface IRequest
 {
     /// <summary>
-    /// Unique identifier used to discern between clients and servers
+    /// Unique identifier of the message
     /// </summary>
     Guid Id { get; set; }
 
     /// <summary>
-    /// Unique identifier used for the producer
+    /// Unique identifier used for the producer (static for the client/server using it)
     /// </summary>
     Guid ProducerId { get; set; }
 
@@ -29,9 +29,14 @@ public interface IRequest
     string? Message { get; set; }
 
     /// <summary>
-    /// Type of notification request
+    /// Type of the producer
     /// </summary>
-    ProducerType Type { get; set; }
+    ProducerType ProducerType { get; set; }
+
+    /// <summary>
+    /// Type of action the request asks for
+    /// </summary>
+    RequestType RequestType { get; set; }
 
     /// <summary>
     /// Request message
