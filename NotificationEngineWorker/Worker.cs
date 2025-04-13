@@ -1,9 +1,6 @@
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
+using NotificationEngineWorker.Managers.RequestHandling;
+using NotificationEngineWorker.Core.Data;
+using NotificationEngineWorker.Core.Data.Enums;
 
 namespace NotificationEngineWorker;
 
@@ -18,52 +15,41 @@ public class Worker : BackgroundService
         _logger = logger;
     }
 
-    // This method contains the background service logic
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        _logger.LogInformation("Worker started at: {time}", DateTimeOffset.Now);
+        _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
 
-        // Keep the service running as long as cancellation is not requested
         while (!stoppingToken.IsCancellationRequested)
         {
             try
             {
-                // Simulate receiving a message (e.g., from RabbitMQ)
+                // Simulate receiving a message
                 var request = await SimulateReceiveMessageAsync(stoppingToken);
 
-                if (request != null)
+                using (var scope = _serviceProvider.CreateScope())
                 {
-                    _logger.LogInformation("Received customer request: {request}", request.Message);
-
-                    // Start processing the request within a scoped lifetime
-                    using (var scope = _serviceProvider.CreateScope())
-                    {
-                        // Resolve the consumer and handle the request
-                        var consumer = scope.ServiceProvider.GetRequiredService<CustomerRequestConsumer>();
-                        await consumer.HandleCustomerRequestAsync(request);
-                    }
+                    var consumer = scope.ServiceProvider.GetRequiredService<RequestConsumer>();
+                    //await consumer.HandleCustomerRequestAsync(request);
                 }
 
-                // Simulate some delay between message checks (e.g., message timeout)
-                await Task.Delay(1000, stoppingToken);  // Delay 1 second before checking again
+                await Task.Delay(1000, stoppingToken);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error occurred while processing the message.");
+                _logger.LogError(ex, "Unhandled exception in worker loop");
             }
         }
 
         _logger.LogInformation("Worker stopping at: {time}", DateTimeOffset.Now);
     }
 
-    // Simulate receiving a message (replace this with RabbitMQ logic)
-    private Task<CustomerRequest> SimulateReceiveMessageAsync(CancellationToken stoppingToken)
+    private Task<ProducerRequest> SimulateReceiveMessageAsync(CancellationToken cancellationToken)
     {
-        return Task.FromResult(new CustomerRequest
+        // This would be replaced with actual RabbitMQ handling
+        return Task.FromResult(new ProducerRequest(request: "")
         {
-            CustomerId = "customerA",
             Message = "This is a test message",
-            Type = "sms"
+            Type = CycleType.Prompt
         });
     }
 }
