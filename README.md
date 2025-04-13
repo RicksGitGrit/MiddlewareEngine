@@ -1,5 +1,6 @@
-# CyclicalMiddlewareEngine
-Skeleton project to as a prototype for handling robot-specific logic, with flexibilty through scoped, disposable services and concurrent message handling.
+# MiddlewareEngine
+Middleware engine, connection VLM + CV post-processing to cyclical requests from a producer like a PLC/Robot
+
 # OIL
   Setup
 - make functional in dummy form
