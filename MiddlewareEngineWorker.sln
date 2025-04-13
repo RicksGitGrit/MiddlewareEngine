@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.13.35931.197
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiddlewareEngineWorker", "NotificationEngineWorker\MiddlewareEngineWorker.csproj", "{3DF8DE3F-53DC-45E9-8968-14F55F27B453}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiddlewareEngineWorker", "MiddlewareEngineWorker\MiddlewareEngineWorker.csproj", "{3DF8DE3F-53DC-45E9-8968-14F55F27B453}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiddlewareEngineWorker.Communication", "Communication\MiddlewareEngineWorker.Communication.csproj", "{8D69E7EC-8132-99A9-95CC-6038019A0EA8}"
 EndProject
