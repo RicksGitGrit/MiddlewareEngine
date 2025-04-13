@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Communication\NotificationEngineWorker.Communication.csproj" />
+    <ProjectReference Include="..\Core\NotificationEngineWorker.Core.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,28 +1,33 @@
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using System;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using NotificationEngineWorker.Core.Interfaces;
+using NotificationEngineWorker.Managers.Callback;
+using NotificationEngineWorker.Managers.RequestHandling;
+using NotificationEngineWorker.Managers.Data;
 
-namespace NotificationEngineWorker;
-
-public class Program
+namespace NotificationEngineWorker
 {
-    public static void Main(string[] args)
+    public class Program
     {
-        // Build and run the host
-        CreateHostBuilder(args).Build().Run();
+        public static void Main(string[] args)
+        {
+            CreateHostBuilder(args).Build().Run();
+        }
+
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .UseServiceProviderFactory(new AutofacServiceProviderFactory()) // Plug in Autofac
+                .UseWindowsService() // Optional: allow running as Windows Service
+                .ConfigureServices((hostContext, services) =>
+                {
+                    services.AddHostedService<Worker>(); // Register your background worker
+                })
+                .ConfigureContainer<ContainerBuilder>(builder =>
+                {
+                    // Autofac registrations go here
+                    builder.RegisterType<CycleFactory>().As<ICycleFactory>().SingleInstance();
+                    builder.RegisterType<ProducerCallbackRegistry>().SingleInstance();
+                    builder.RegisterType<RequestConsumer>().InstancePerLifetimeScope();
+                });
     }
-
-    public static IHostBuilder CreateHostBuilder(string[] args) =>
-        Host.CreateDefaultBuilder(args)
-            .ConfigureServices((hostContext, services) =>
-            {
-                // Register services like consumer, notification factory, etc.
-                services.AddHostedService<Worker>(); // This registers the Worker as a hosted service
-
-                // Optionally, register Autofac and other services here
-                // services.AddAutofac();
-            })
-            .UseWindowsService() // Ensures it runs as a Windows Service
-            .UseDefaultServiceProvider(options =>
-                options.ValidateScopes = false); // Default validation for DI scopes
 }
