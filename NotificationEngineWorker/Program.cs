@@ -25,7 +25,7 @@ namespace NotificationEngineWorker
                 .ConfigureContainer<ContainerBuilder>(builder =>
                 {
                     // Autofac registrations go here
-                    builder.RegisterType<CycleFactory>().As<ICycleFactory>().SingleInstance();
+                    builder.RegisterType<FlowFactory>().As<IFlowFactory>().SingleInstance();
                     builder.RegisterType<ProducerCallbackRegistry>().SingleInstance();
                     builder.RegisterType<RequestConsumer>().InstancePerLifetimeScope();
                 });

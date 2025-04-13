@@ -49,7 +49,7 @@ public class Worker : BackgroundService
         return Task.FromResult(new ProducerRequest(request: "")
         {
             Message = "This is a test message",
-            Type = CycleType.Prompt
+            Type = ProducerType.Prompt
         });
     }
 }

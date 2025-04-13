@@ -9,10 +9,16 @@ public class ProducerRequest : IRequest
     public Guid Id { get; set; }
 
     /// <inheritdoc/>
+    public Guid ProducerId { get; set; }
+
+    /// <inheritdoc/>
+    public Guid MachineCycleId { get; set; }
+
+    /// <inheritdoc/>
     public string? Message { get; set; }
 
     /// <inheritdoc/>
-    public CycleType Type { get; set; }
+    public ProducerType Type { get; set; }
 
     /// <inheritdoc/>
     public string Request { get; set; }

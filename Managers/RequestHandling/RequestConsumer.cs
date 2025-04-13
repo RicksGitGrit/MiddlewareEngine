@@ -7,9 +7,9 @@ namespace NotificationEngineWorker.Managers.RequestHandling;
 
 public class RequestConsumer
 {
-    private readonly NotificationCycleManager _cycleManager;
+    private readonly MachineCycleManager _cycleManager;
 
-    public RequestConsumer(NotificationCycleManager cycleManager)
+    public RequestConsumer(MachineCycleManager cycleManager)
     {
         _cycleManager = cycleManager;
     }
@@ -39,7 +39,7 @@ public class RequestConsumer
         {
             // This would be dynamic in a real-world case
             Message = "Test message",
-            Type = CycleType.Default
+            Type = ProducerType.Default
         }) ;
     }
 }
